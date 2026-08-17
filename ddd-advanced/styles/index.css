@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --slidev-theme-primary: #38bdf8;
+  --slidev-theme-accent: #818cf8;
+  --bg-dark-card: rgba(15, 23, 42, 0.75);
+  --border-card: rgba(255, 255, 255, 0.1);
+}
+
+/* Global Font & Baseline */
+body, .slidev-layout {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+  color: #f1f5f9;
+}
+
+code, kbd, samp, pre {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.82em !important;
+}
+
+/* Headings Typography */
+h1 {
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.15 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #38bdf8 !important;
+  opacity: 0.95;
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+h3 {
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--bg-dark-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-card);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Slide Container Optimization */
+.slidev-layout {
+  padding: 2.25rem 3.5rem !important;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto !important;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
+}
+
+/* Code Blocks Polish */
+div.slidev-code {
+  border-radius: 0.75rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.slidev-code pre {
+  padding: 1rem 1.25rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Mermaid Diagrams Scaling & Containment */
+.mermaid-container {
+  width: 100%;
+  max-height: 440px;
+  overflow-x: auto;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start !important; /* Always start at top = 0 so no top element is clipped! */
+  padding: 1rem 0.5rem;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+}
+
+.mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start !important;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mermaid svg {
+  max-height: 410px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  width: auto !important;
+  margin: 0 auto;
+}
+
+/* Mermaid Scrollable Container (para diagramas horizontales LR con texto grande) */
+.mermaid-scrollable {
+  width: 100%;
+  max-height: 520px;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+}
+
+.mermaid-scrollable .mermaid {
+  display: inline-block !important;
+  width: max-content !important;
+  min-width: 100%;
+  transform: scale(1.4);
+  transform-origin: top left;
+  margin-bottom: 140px;
+  margin-right: 250px;
+}
+
+.mermaid-scrollable .mermaid svg {
+  max-width: none !important;
+  min-width: 1400px !important;
+  height: auto !important;
+}
+
+/* Mermaid Typography Super Enlargement (Sin Bold, solo tamaño de letra amplio exclusivo de Mermaid) */
+.mermaid svg text,
+.mermaid svg .nodeLabel,
+.mermaid svg .edgeLabel,
+.mermaid svg .cluster-label,
+.mermaid svg span,
+.mermaid svg tspan,
+.mermaid svg p {
+  font-size: 26px !important;
+  font-weight: 400 !important;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+}
+
+.mermaid-scrollable .mermaid svg .node rect,
+.mermaid-scrollable .mermaid svg .node polygon,
+.mermaid-scrollable .mermaid svg .node circle {
+  rx: 10px !important;
+  ry: 10px !important;
+}
+
+.mermaid-scrollable .mermaid svg .nodeLabel,
+.mermaid-scrollable .mermaid svg .nodeLabel span,
+.mermaid-scrollable .mermaid svg .node p,
+.mermaid-scrollable .mermaid svg foreignObject p {
+  font-size: 30px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  padding: 12px 24px !important;
+}
+
+.mermaid-scrollable .mermaid svg .edgeLabel,
+.mermaid-scrollable .mermaid svg .edgeLabel span,
+.mermaid-scrollable .mermaid svg .edgeLabel p,
+.mermaid-scrollable .mermaid svg .label foreignObject p {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  color: #38bdf8 !important;
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+}
+
+.mermaid-scrollable .mermaid svg .cluster-label span,
+.mermaid-scrollable .mermaid svg .cluster-label text {
+  font-size: 26px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* Badge & Tag Styling */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.badge-primary {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-success {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.badge-warning {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.badge-danger {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
