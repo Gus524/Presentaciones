@@ -27,7 +27,7 @@ style: |
 
 <div class="mt-8 p-6 glass-card max-w-2xl">
   <p class="text-sm leading-relaxed text-slate-300">
-    Un recorrido práctico sobre diseño de software robusto aplicado a sistemas reales de 
+    Un recorrido práctico sobre diseño de software robusto aplicado a Bounded Contexts de 
     <strong class="text-sky-400">Beneficios, Préstamos, Ahorros, Operaciones, Afiliación y Contabilidad</strong>.
   </p>
 </div>
@@ -35,6 +35,50 @@ style: |
 <div @click="$slidev.nav.next" class="mt-8 py-2 px-5 inline-flex items-center gap-2 rounded-lg cursor-pointer bg-sky-500/20 border border-sky-500/40 hover:bg-sky-500/30 transition text-sm text-sky-300 font-semibold">
   <span>Iniciar Presentación</span>
   <carbon:arrow-right />
+</div>
+
+---
+transition: slide-left
+layout: two-cols-header
+---
+
+# Recapitulación: Pilares Fundamentales de DDD
+## El vocabulario y conceptos base que debemos dominar antes de avanzar
+
+::left::
+
+<div class="glass-card mr-2 mt-2 h-full flex flex-col justify-between">
+  <div>
+    <span class="badge badge-primary mb-3">🧭 Dimensión Estratégica</span>
+    <v-clicks>
+      <ul class="text-xs space-y-3 leading-relaxed text-slate-300 mt-2">
+        <li><strong>Ubiquitous Language:</strong> Lenguaje común y riguroso compartido entre expertos de negocio y desarrolladores sin modismos técnicos.</li>
+        <li><strong>Bounded Context:</strong> Frontera explícita en el modelo dentro de la cual los términos técnicos y reglas de negocio tienen significado unívoco.</li>
+        <li><strong>Subdominios:</strong> Clasificación del problema de negocio en <em>Core Subdomain</em> (ventaja competitiva), <em>Supporting</em> y <em>Generic</em>.</li>
+      </ul>
+    </v-clicks>
+  </div>
+  <div class="mt-4 pt-2 border-t border-slate-700/50 text-[10px] text-slate-400">
+    Focus: Delimitación de fronteras y alineación con la organización.
+  </div>
+</div>
+
+::right::
+
+<div class="glass-card ml-2 mt-2 h-full flex flex-col justify-between">
+  <div>
+    <span class="badge badge-success mb-3">🧩 Dimensión Táctica</span>
+    <v-clicks>
+      <ul class="text-xs space-y-3 leading-relaxed text-slate-300 mt-2">
+        <li><strong>Entities & Value Objects:</strong> Entidades con identidad e historia de vida vs Objetos de Valor inmutables definidos 100% por sus atributos.</li>
+        <li><strong>Aggregate & Aggregate Root:</strong> Clúster de objetos del dominio agrupados bajo una raíz (Root) para garantizar consistencia e invariantes en una transacción.</li>
+        <li><strong>Domain Events:</strong> Notificación explícita de un hecho relevante del negocio que ya ocurrió, utilizado para desacoplar efectos secundarios.</li>
+      </ul>
+    </v-clicks>
+  </div>
+  <div class="mt-4 pt-2 border-t border-slate-700/50 text-[10px] text-slate-400">
+    Focus: Modelado rico en C# respetando invariantes y encapsulación.
+  </div>
 </div>
 
 ---
@@ -47,34 +91,38 @@ layout: two-cols-header
 
 ::left::
 
-<div class="glass-card mr-2 mt-2 h-full flex flex-col justify-between border-l-4 border-l-red-500">
+<div class="glass-card glass-card-danger mr-2 mt-2 h-full flex flex-col justify-between">
   <div>
     <span class="badge badge-danger mb-3">⚠️ El Problema Habitual</span>
-    <ul class="text-xs space-y-3 leading-relaxed text-slate-300 mt-2">
-      <li><strong>Anemia en el Dominio:</strong> Entidades reducidas a meros DTOs con getters/setters públicos indeseados.</li>
-      <li><strong>Lógica dispersa:</strong> Validaciones críticas filtradas en controladores HTTP o Application Services.</li>
-      <li><strong>Acoplamiento a Infraestructura:</strong> Dependencias directas de EF Core o SDKs de mensajería en el modelo.</li>
-      <li><strong>Dual-Write Frágil:</strong> Intentar guardar en BD y publicar en RabbitMQ en la misma petición web.</li>
-    </ul>
+    <v-clicks>
+      <ul class="text-xs space-y-3 leading-relaxed text-slate-300 mt-2">
+        <li><strong>Anemia en el Dominio:</strong> Entidades reducidas a meros DTOs con getters/setters públicos indeseados.</li>
+        <li><strong>Lógica dispersa:</strong> Validaciones críticas filtradas en controladores HTTP o Application Services.</li>
+        <li><strong>Acoplamiento a Infraestructura:</strong> Dependencias directas de EF Core o SDKs de mensajería en el modelo.</li>
+        <li><strong>Dual-Write Frágil:</strong> Intentar guardar en BD y publicar en RabbitMQ en la misma petición web.</li>
+      </ul>
+    </v-clicks>
   </div>
 </div>
 
 ::right::
 
-<div class="glass-card ml-2 mt-2 h-full flex flex-col justify-between border-l-4 border-l-emerald-500">
+<div class="glass-card glass-card-success ml-2 mt-2 h-full flex flex-col justify-between">
   <div>
     <span class="badge badge-success mb-3">🛡️ El Enfoque Senior de Hoy</span>
-    <ul class="text-xs space-y-3 leading-relaxed text-slate-300 mt-2">
-      <li><strong>Screaming Architecture:</strong> El código refleja el negocio, no el framework.</li>
-      <li><strong>Invariantes Incondicionales:</strong> Constructores privados, Factory Methods y *Design by Contract*.</li>
-      <li><strong>Fronteras con ACL:</strong> Aislamiento defensivo entre Bounded Contexts vía *Anti-Corruption Layer*.</li>
-      <li><strong>Outbox Pattern:</strong> Persistencia atómica de eventos de dominio con interceptores de EF Core.</li>
-    </ul>
+    <v-clicks>
+      <ul class="text-xs space-y-3 leading-relaxed text-slate-300 mt-2">
+        <li><strong>Screaming Architecture:</strong> El código refleja el negocio, no el framework.</li>
+        <li><strong>Invariantes Incondicionales:</strong> Constructores privados, Factory Methods y <em>Design by Contract</em>.</li>
+        <li><strong>Fronteras con ACL:</strong> Aislamiento defensivo entre Bounded Contexts vía <em>Anti-Corruption Layer</em>.</li>
+        <li><strong>Outbox Pattern:</strong> Persistencia atómica de eventos de dominio con interceptores de EF Core.</li>
+      </ul>
+    </v-clicks>
   </div>
 </div>
 
 ---
-transition: slide-left
+transition: slide-right
 layout: default
 ---
 
@@ -83,7 +131,7 @@ layout: default
 
 <div class="grid grid-cols-3 gap-5 mt-6">
 
-<div class="glass-card border-t-4 border-t-amber-400">
+<div class="glass-card border-t-4 border-t-amber-400" v-click>
   <div class="flex items-center justify-between mb-3">
     <h3 class="text-amber-400 font-bold text-base">🎯 CORE DOMAINS</h3>
     <span class="badge badge-warning">Núcleo</span>
@@ -97,7 +145,7 @@ layout: default
   </ul>
 </div>
 
-<div class="glass-card border-t-4 border-t-sky-400">
+<div class="glass-card border-t-4 border-t-sky-400" v-click>
   <div class="flex items-center justify-between mb-3">
     <h3 class="text-sky-400 font-bold text-base">📋 SUPPORTING</h3>
     <span class="badge badge-primary">Soporte</span>
@@ -109,7 +157,7 @@ layout: default
   </ul>
 </div>
 
-<div class="glass-card border-t-4 border-t-slate-400">
+<div class="glass-card border-t-4 border-t-slate-400" v-click>
   <div class="flex items-center justify-between mb-3">
     <h3 class="text-slate-300 font-bold text-base">🔑 GENERIC</h3>
     <span class="badge bg-slate-700 text-slate-200">Infra</span>
@@ -123,7 +171,7 @@ layout: default
 </div>
 
 ---
-transition: slide-up
+transition: zoom
 layout: default
 ---
 
@@ -184,7 +232,7 @@ flowchart LR
 </div>
 
 ---
-transition: slide-left
+transition: slide-up
 layout: two-cols-header
 ---
 
@@ -195,36 +243,40 @@ layout: two-cols-header
 
 <div class="glass-card mr-2 mt-2 space-y-3 text-xs leading-relaxed text-slate-300">
   <h3 class="text-sky-400 font-bold text-sm mb-2">🔗 Clasificación Upstream / Downstream</h3>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-amber-300">Upstream (U) / Downstream (D):</strong><br>
-    El contexto Upstream dicta el contrato o emite eventos; el Downstream consume y se adapta.
-  </div>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-sky-300">Customer-Supplier:</strong><br>
-    El equipo Upstream atiende las necesidades de integración del Downstream con prioridad.
-  </div>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-emerald-300">Published Language (PL):</strong><br>
-    Contratos DTO inmutables y compartidos (ej. eventos en `SharedKernel`).
-  </div>
+  <v-clicks>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-amber-300">Upstream (U) / Downstream (D):</strong><br>
+      El contexto Upstream dicta el contrato o emite eventos; el Downstream consume y se adapta.
+    </div>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-sky-300">Customer-Supplier:</strong><br>
+      El equipo Upstream atiende las necesidades de integración del Downstream con prioridad.
+    </div>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-emerald-300">Published Language (PL):</strong><br>
+      Contratos DTO inmutables y compartidos (ej. eventos en <code>SharedKernel</code>).
+    </div>
+  </v-clicks>
 </div>
 
 ::right::
 
 <div class="glass-card ml-2 mt-2 space-y-3 text-xs leading-relaxed text-slate-300">
   <h3 class="text-purple-400 font-bold text-sm mb-2">🛡️ Patrones Tácticos de Integración</h3>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-purple-300">Anti-Corruption Layer (ACL):</strong><br>
-    Traductor defensivo que evita que modelos o DTOs externos contaminen el Core Domain.
-  </div>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-pink-300">Conformist Pattern:</strong><br>
-    El Downstream acepta el esquema Upstream cuando este es estable y estándar.
-  </div>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-indigo-300">Shared Kernel:</strong><br>
-    Código compartido strictly acotado a Value Objects agnósticos (ej. `Dinero.cs`).
-  </div>
+  <v-clicks>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-purple-300">Anti-Corruption Layer (ACL):</strong><br>
+      Traductor defensivo que evita que modelos o DTOs externos contaminen el Core Domain.
+    </div>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-pink-300">Conformist Pattern:</strong><br>
+      El Downstream acepta el esquema Upstream cuando este es estable y estándar.
+    </div>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-indigo-300">Shared Kernel:</strong><br>
+      Código compartido strictly acotado a Value Objects agnósticos (ej. <code>Dinero.cs</code>).
+    </div>
+  </v-clicks>
 </div>
 
 ---
@@ -237,7 +289,7 @@ layout: default
 
 El contexto de **Préstamos** requiere reglas del contexto de **Productos**, pero NUNCA debe acoplarse a los DTOs externos.
 
-```csharp {all|2-7|9-18|20-29}
+```csharp {all|2-7|10-23|25-27}
 // 1. Contrato de la Capa Anticorrupción (ACL) en Persistence/Mappers/IMapper.cs
 public interface IMapper<TDomain, TPersistence>
 {
@@ -273,7 +325,7 @@ public class PrestamoMapper : IMapper<Prestamo, PrestamoDbEntity>
 ```
 
 ---
-transition: slide-left
+transition: slide-right
 layout: default
 ---
 
@@ -282,7 +334,7 @@ layout: default
 
 <div class="grid grid-cols-3 gap-4 text-xs mb-4">
 
-<div class="glass-card border-t-2 border-t-amber-400">
+<div class="glass-card border-t-2 border-t-amber-400" v-click>
   <h4 class="font-bold text-amber-400 text-sm mb-1">🧠 Domain Service</h4>
   <p class="text-slate-300">Lógica de negocio pura multientidad.</p>
   <ul class="mt-2 space-y-1 text-slate-400">
@@ -292,7 +344,7 @@ layout: default
   </ul>
 </div>
 
-<div class="glass-card border-t-2 border-t-sky-400">
+<div class="glass-card border-t-2 border-t-sky-400" v-click>
   <h4 class="font-bold text-sky-400 text-sm mb-1">🚀 Application Service</h4>
   <p class="text-slate-300">Orquestador del Caso de Uso.</p>
   <ul class="mt-2 space-y-1 text-slate-400">
@@ -302,7 +354,7 @@ layout: default
   </ul>
 </div>
 
-<div class="glass-card border-t-2 border-t-slate-400">
+<div class="glass-card border-t-2 border-t-slate-400" v-click>
   <h4 class="font-bold text-slate-300 text-sm mb-1">🔌 Infrastructure Service</h4>
   <p class="text-slate-300">Detalles de entrada / salida y HTTP.</p>
   <ul class="mt-2 space-y-1 text-slate-400">
@@ -314,7 +366,7 @@ layout: default
 
 </div>
 
-```csharp {all|2-7}
+```csharp {all|1-2|4-8}
 // Domain Service Puro: Lógica de negocio multientidad sin I/O ni repositorios
 public class CalcularSaldoService
 {
@@ -328,7 +380,7 @@ public class CalcularSaldoService
 ```
 
 ---
-transition: slide-left
+transition: slide-up
 layout: default
 ---
 
@@ -339,7 +391,7 @@ Garantizamos seguridad de tipos sin saturar el Garbage Collector (GC):
 
 <div class="grid grid-cols-2 gap-5 mt-4">
 
-<div class="glass-card border-l-4 border-l-sky-400">
+<div class="glass-card border-l-4 border-l-sky-400" v-click>
 
 <div class="flex items-center justify-between mb-2">
   <h3 class="text-sky-400 font-bold text-sm">⚡ 1 Campo Primario -> struct</h3>
@@ -358,7 +410,7 @@ public readonly record struct PrestamoId(Guid Value)
 
 </div>
 
-<div class="glass-card border-l-4 border-l-purple-400">
+<div class="glass-card border-l-4 border-l-purple-400" v-click>
 
 <div class="flex items-center justify-between mb-2">
   <h3 class="text-purple-400 font-bold text-sm">🧠 Compuestos / Grandes -> record</h3>
@@ -417,7 +469,7 @@ public record Dinero
 ```
 
 ---
-transition: slide-left
+transition: slide-right
 layout: default
 ---
 
@@ -453,11 +505,11 @@ public class Prestamo : AggregateRoot<PrestamoId>
 ```
 
 <div class="grid grid-cols-2 gap-4 mt-3 text-xs">
-  <div class="glass-card border-l-4 border-l-emerald-500 p-2.5">
+  <div class="glass-card glass-card-success p-2.5" v-click>
     <strong class="text-emerald-400">🌱 `NuevoPrestamo(...)` (Nuevas Entidades)</strong><br>
     Ejecuta invariantes actuales del negocio, asigna `EstadoPendiente` y emite `PrestamoCreado`.
   </div>
-  <div class="glass-card border-l-4 border-l-sky-500 p-2.5">
+  <div class="glass-card glass-card-info p-2.5" v-click>
     <strong class="text-sky-400">🔄 `Reconstruir(...)` (Hidratación desde BD / ACL)</strong><br>
     Restaura el estado histórico exacto. <strong>NUNCA valida de nuevo ni re-emite eventos de dominio duplicados.</strong>
   </div>
@@ -496,7 +548,7 @@ public record EstadoAprobado() : EstadoPrestamo("Aprobado")
 ```
 
 ---
-transition: slide-left
+transition: fade-out
 layout: default
 ---
 
@@ -519,7 +571,7 @@ sequenceDiagram
 
 </div>
 
-<div class="mt-3 p-3 glass-card border-l-4 border-l-red-500 flex items-center gap-3">
+<div class="mt-3 p-3 glass-card glass-card-danger flex items-center gap-3">
   <span class="badge badge-danger">Divergencia Crítica</span>
   <p class="text-xs text-slate-300 leading-relaxed">
     Publicar directamente al Message Broker tras guardar en BD no garantiza atomicidad.
@@ -528,7 +580,7 @@ sequenceDiagram
 </div>
 
 ---
-transition: slide-left
+transition: zoom
 layout: default
 ---
 
@@ -561,7 +613,7 @@ flowchart LR
 </div>
 
 ---
-transition: slide-left
+transition: slide-up
 layout: default
 ---
 
@@ -641,29 +693,31 @@ flowchart TD
 
 <div class="glass-card ml-2 mt-2 space-y-3 text-xs leading-relaxed text-slate-300">
   <h3 class="text-sky-400 font-bold text-sm">📐 Principios de Inversión (DIP)</h3>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-sky-300">1. Puerto de Dominio:</strong><br>
-    <code class="text-sky-300">IPrestamoRepository : IRepository&lt;Prestamo, PrestamoId&gt;</code> vive en <code class="text-slate-400">Core.Prestamos.Domain.Ports</code>.
-  </div>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-amber-300">2. Adaptador Secundario:</strong><br>
-    <code class="text-amber-300">PrestamoRepository</code> implementa el puerto heredando de <code class="text-slate-400">GenericRepository</code> en <code class="text-slate-400">Persistence.Repository</code>.
-  </div>
-  <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
-    <strong class="text-emerald-300">3. Barrera ACL Integrada:</strong><br>
-    El repositorio invoca de forma transparente a <code class="text-emerald-300">IMapper&lt;Prestamo, PrestamoDbEntity&gt;</code>.
-  </div>
+  <v-clicks>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-sky-300">1. Puerto de Dominio:</strong><br>
+      <code class="text-sky-300">IPrestamoRepository : IRepository&lt;Prestamo, PrestamoId&gt;</code> vive en <code class="text-slate-400">Core.Prestamos.Domain.Ports</code>.
+    </div>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-amber-300">2. Adaptador Secundario:</strong><br>
+      <code class="text-amber-300">PrestamoRepository</code> implementa el puerto heredando de <code class="text-slate-400">GenericRepository</code> en <code class="text-slate-400">Persistence.Repository</code>.
+    </div>
+    <div class="p-2.5 rounded bg-slate-900/60 border border-slate-800">
+      <strong class="text-emerald-300">3. Barrera ACL Integrada:</strong><br>
+      El repositorio invoca de forma transparente a <code class="text-emerald-300">IMapper&lt;Prestamo, PrestamoDbEntity&gt;</code>.
+    </div>
+  </v-clicks>
 </div>
 
 ---
-transition: slide-left
+transition: slide-right
 layout: default
 ---
 
 # 15. CQRS Asimétrico & Result Pattern (Response)
 ## Flujo de Control Funcional sin Excepciones Costosas
 
-```csharp {all|2-7|10-27}
+```csharp {all|1-6|9-15|17-21|23-29}
 // 1. Result Pattern (Respuestas explícitas tipadas en lugar de throw new Exception)
 public class Response
 {
@@ -698,7 +752,7 @@ public class RegistrarPagoCommandHandler(
 ```
 
 ---
-transition: slide-left
+transition: slide-up
 layout: default
 ---
 
@@ -708,7 +762,7 @@ layout: default
 > **Regla de Oro:** Un Suscriptor de Eventos **NUNCA inyecta `IRepository`, ni `DbContext`, ni `IUnitOfWork`**.
 > Modificar múltiples agregados en la misma transacción viola la encapsulación. Se inyecta exclusivamente `IMediator` y se despacha un Comando.
 
-```csharp {all|2-3|5-18}
+```csharp {all|1-3|5-10|11-18}
 // 1. Evento de Dominio (Expresividad en pasado sin el sufijo redundante 'Event')
 public record AfiliadoDesvinculado(int AfiliadoId, DateTime FechaDesvinculacion) : DomainEvent;
 
@@ -738,32 +792,36 @@ layout: default
 
 <div class="grid grid-cols-2 gap-5 mt-4">
 
-<div class="glass-card border-t-4 border-t-emerald-500">
+<div class="glass-card glass-card-success">
   <div class="flex items-center gap-2 mb-3">
     <span class="badge badge-success">✅ DO'S</span>
     <h3 class="text-emerald-400 font-bold text-sm">Prácticas Obligatorias</h3>
   </div>
-  <ul class="text-xs space-y-2 text-slate-300">
-    <li>✔ Constructores privados (`NuevoPrestamo` creación vs `Reconstruir` hidratación).</li>
-    <li>✔ Eventos de Dominio en pasado sin sufijo 'Event' (`PagoAutorizado`, `PrestamoCreado`).</li>
-    <li>✔ Suscriptores Delgados: Inyectan <strong>únicamente `IMediator`</strong> y despachan Comandos.</li>
-    <li>✔ Outbox Pattern para publicación atómica de Domain Events en BD.</li>
-    <li>✔ Capa Anticorrupción (ACL / `IMapper`) para aislar tablas relacionales de BD.</li>
-  </ul>
+  <v-clicks>
+    <ul class="text-xs space-y-2 text-slate-300">
+      <li>✔ Constructores privados (`NuevoPrestamo` creación vs `Reconstruir` hidratación).</li>
+      <li>✔ Eventos de Dominio en pasado sin sufijo 'Event' (`PagoAutorizado`, `PrestamoCreado`).</li>
+      <li>✔ Suscriptores Delgados: Inyectan <strong>únicamente `IMediator`</strong> y despachan Comandos.</li>
+      <li>✔ Outbox Pattern para publicación atómica de Domain Events en BD.</li>
+      <li>✔ Capa Anticorrupción (ACL / `IMapper`) para aislar tablas relacionales de BD.</li>
+    </ul>
+  </v-clicks>
 </div>
 
-<div class="glass-card border-t-4 border-t-red-500">
+<div class="glass-card glass-card-danger">
   <div class="flex items-center gap-2 mb-3">
     <span class="badge badge-danger">❌ DON'TS</span>
     <h3 class="text-red-400 font-bold text-sm">Smells Prohibidos</h3>
   </div>
-  <ul class="text-xs space-y-2 text-slate-300">
-    <li>✖ Inyectar `IRepository`, `DbContext` o `IUnitOfWork` dentro de un Event Subscriber.</li>
-    <li>✖ Nombrar clases con el sufijo redundante `Event` (ej. `PagoAutorizadoEvent`).</li>
-    <li>✖ Entidades anémicas con setters públicos (`public set;`).</li>
-    <li>✖ Lanzar excepciones para validaciones (`Response.UnprocessableEntity`).</li>
-    <li>✖ `switch/if` spaghetti para manejo de estados (usar State Pattern).</li>
-  </ul>
+  <v-clicks>
+    <ul class="text-xs space-y-2 text-slate-300">
+      <li>✖ Inyectar `IRepository`, `DbContext` o `IUnitOfWork` dentro de un Event Subscriber.</li>
+      <li>✖ Nombrar clases con el sufijo redundante `Event` (ej. `PagoAutorizadoEvent`).</li>
+      <li>✖ Entidades anémicas con setters públicos (`public set;`).</li>
+      <li>✖ Lanzar excepciones para validaciones (`Response.UnprocessableEntity`).</li>
+      <li>✖ `switch/if` spaghetti para manejo de estados (usar State Pattern).</li>
+    </ul>
+  </v-clicks>
 </div>
 
 </div>
@@ -783,12 +841,14 @@ class: text-center
   <span>Resumen Arquitectónico</span>
 </div>
 
-<ul class="space-y-2.5 text-slate-300 list-none p-0 m-0">
-  <li><strong class="text-sky-300">1. Dominio Rico Primero:</strong> Agregados protegidos con constructor privado, VOs con algoritmos y State Machine.</li>
-  <li><strong class="text-sky-300">2. Bounded Contexts Aislados:</strong> Usar ACL (`IMapper`) y `Reconstruir` para aislar datos.</li>
-  <li><strong class="text-sky-300">3. Atomicidad Atómica:</strong> `OutboxDomainEventsInterceptor` en tu DbContext SQL.</li>
-  <li><strong class="text-sky-300">4. Hexágono & Suscriptores Delgados:</strong> Puertos de Dominio y Suscriptores con `IMediator` (1 Agregado por Transacción).</li>
-</ul>
+<v-clicks>
+  <ul class="space-y-2.5 text-slate-300 list-none p-0 m-0">
+    <li><strong class="text-sky-300">1. Dominio Rico Primero:</strong> Agregados protegidos con constructor privado, VOs con algoritmos y State Machine.</li>
+    <li><strong class="text-sky-300">2. Bounded Contexts Aislados:</strong> Usar ACL (`IMapper`) y `Reconstruir` para aislar datos.</li>
+    <li><strong class="text-sky-300">3. Atomicidad Atómica:</strong> `OutboxDomainEventsInterceptor` en tu DbContext SQL.</li>
+    <li><strong class="text-sky-300">4. Hexágono & Suscriptores Delgados:</strong> Puertos de Dominio y Suscriptores con `IMediator` (1 Agregado por Transacción).</li>
+  </ul>
+</v-clicks>
 
 </div>
 
@@ -797,3 +857,4 @@ class: text-center
 <div class="mt-6 text-xs text-slate-400">
   Ejecución local con Bun: <code class="text-sky-300">bun run dev</code>
 </div>
+

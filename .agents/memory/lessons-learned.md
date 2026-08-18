@@ -40,7 +40,94 @@ This file records user feedback, rejected anti-patterns, and architectural prefe
   2. Remove inline emojis from node labels when font size is >= 24px so text renders cleanly with generous internal node padding (`12px 24px`).
   3. Maintain `.mermaid-scrollable` horizontal scroll container to prevent compression while preserving clean typography.
 
-## Entry 6: Cover Slide Background Contrast & Text Avoidance
-- **Context/Slide:** Cover slide background image (`/cover-bg.jpg`).
-- **Rejected Anti-Pattern:** Using background images with baked-in text/typography or light/busy graphics that obscure white title text.
-- **Corrected Behavior:** Generate or select dark navy/slate geometric textures completely free of text or words, providing maximum contrast and legibility for white presentation typography.
+## Entry 7: Card Column Width Sizing & Vertical Scroll Containment
+- **Context/Slide:** Two-column slides (e.g., slides 2, 3, 5, 14, 17) and tall content slides.
+- **Rejected Anti-Pattern:** Cards overflowing horizontally so the second column is hidden or cut off off-screen; cards with tall content getting truncated at the bottom.
+- **Corrected Behavior:**
+  1. Add `w-full overflow-hidden` or explicit max-width/flex containment (`w-full flex-1`) on two-column slots (`::left::` and `::right::`).
+  2. Implement vertical scrollable containers (`max-h-[420px] overflow-y-auto pr-1` or `.scrollable-card`).
+
+## Entry 8: Vertical Stacked Layout for Code Comparison Slides
+- **Context/Slide:** Code comparison slides (Slide 8 Backend CQRS, Slide 9 Domain Rich Model, Slide 10 Angular Signals).
+- **Rejected Anti-Pattern:** Forcing side-by-side two-column layouts for code comparisons with different prompts.
+- **Corrected Behavior:** Use single-column layout with full-width cards stacked vertically.
+
+## Entry 9: Slide-Level Vertical Scrolling & Generous Grid Gaps
+- **Context/Slide:** Global slide layouts (`styles/index.css` and all slides in `slides.md`).
+- **Rejected Anti-Pattern:** Cramped horizontal gaps between side-by-side cards.
+- **Corrected Behavior:** Enable page-level scrolling and use generous gaps.
+
+## Entry 10: Two-Column Header Margin & Explicit Column Gap
+- **Context/Slide:** Two-column horizontal slides (`layout: two-cols-header`).
+- **Rejected Anti-Pattern:** Subtitle touching the top border of cards (`margin-bottom: 0`); left and right cards touching border-to-border (`gap: 0`).
+- **Corrected Behavior:** Use explicit 2-column grid layout with 32px gap and header margin.
+
+## Entry 11: Avoid Fragile Positional Selectors in Slidev Layouts
+- **Context/Slide:** `styles/index.css` for Slidev `two-cols-header` layouts.
+- **Rejected Anti-Pattern:** Using positional child selectors like `> div:nth-child(2)` on `.two-cols-header`.
+- **Corrected Behavior:** Define `.slidev-layout.two-cols-header` as a clean 2-column grid.
+
+## Entry 12: Native Mermaid Code Blocks & Clean HTML Parsing in Slidev
+- **Context/Slide:** Mermaid diagrams (Slide 20) and HTML list structures across slides.
+- **Rejected Anti-Pattern:** Using raw `<div class="mermaid">` HTML tags instead of fenced ` ```mermaid ` code blocks.
+- **Corrected Behavior:** Use standard fenced ` ```mermaid ` code blocks for all diagrams.
+
+## Entry 13: Left-to-Right Mermaid Pipeline Flow & QA Error Feedback Loop
+- **Context/Slide:** SDD Pipeline Diagram (Slide 20).
+- **Rejected Anti-Pattern:** Vertical `graph TD` flow causing phases to stack out of numerical order; omitting the QA failure feedback loop.
+- **Corrected Behavior:**
+  1. Use `graph LR` (Left-to-Right) and link phase subgraphs sequentially (`P1 --> P2 --> P3 --> P4 --> P5`) to force an ordered horizontal progression.
+  2. Include the QA FAIL feedback loop (`DQTE -.->|QA FAIL| HITL_QA -.->|Fix Task| P4`) showing the error classification path back to tactical agents or design.
+
+## Entry 14: Central Orchestrator Dispatch & Claim-Check Response Flow in Mermaid
+- **Context/Slide:** SDD Pipeline Diagram (Slide 20).
+- **Rejected Anti-Pattern:** Showing sub-agents operating autonomously without visual links to the central orchestrator.
+- **Corrected Behavior:** Show `global-architect-orchestrator` dispatching sub-agents and receiving payloads.
+
+## Entry 15: Simplified Human-Centric Pipeline Diagram & Dual HITL Decision Gates
+- **Context/Slide:** SDD Pipeline Diagram (Slide 20).
+- **Rejected Anti-Pattern:** Over-saturating diagrams with repetitive orchestrator arrows in every subgraph.
+- **Corrected Behavior:**
+  1. Simplify pipeline flow sequentially (`Phase 1 ➔ Phase 2 ➔ Phase 3 ➔ Phase 4 ➔ Phase 5`).
+  2. Prominently highlight the 2 Human-in-the-Loop decision gates: `👤 HITL Gate 1` (Branch A vs B selection after Scout) and `👤 HITL Gate 2` (Error classification & retry routing after QA failure).
+  3. Keep orchestrator context implicit or backgrounded for maximum visual clarity (`scale: 0.7`).
+
+## Entry 16: Vue Directive Wrapper Syntax & HTML List Formatting in Slidev
+- **Context/Slide:** Slide 11 (`v-click` animation cards) and Slide 17 (Agent catalog list).
+- **Rejected Anti-Pattern:** Placing `v-click` directly as an inline attribute on raw HTML `<div v-click class="...">`, which breaks HTML element parsing and outputs `<p class="...">` as plain text; using indented Markdown lists inside HTML `<div>` blocks without explicit `<ul>`/`<li>` tags.
+- **Corrected Behavior:**
+  1. Wrap interactive elements in explicit Slidev `<v-click><div class="...">...</div></v-click>` tags.
+  2. Use clean HTML `<ul class="list-disc pl-4 space-y-2"><li>...</li></ul>` structures inside HTML cards for 100% reliable DOM rendering.
+
+## Entry 17: Replace `<p>` tags with `<div>` inside HTML cards in Slidev
+- **Context/Slide:** Slide 10 and Slide 11 (`Evaluación Crítica`).
+- **Rejected Anti-Pattern:** Using `<p class="...">` tags inside custom HTML card containers, which causes Markdown-it in Slidev to render literal `<p class="...">` raw text on screen.
+- **Corrected Behavior:** Use `<div class="...">` tags instead of `<p>` inside HTML containers for clean, raw-text-free rendering.
+
+## Entry 18: Do NOT Wrap Fenced Code Blocks (` ``` `) Inside HTML `<div>` Tags in Slidev
+- **Context/Slide:** Slides de "Casos Prácticos" (Slide 8 Backend CQRS, Slide 9 Dominio, Slide 10 Frontend Signals).
+- **Rejected Anti-Pattern:** Wrapping fenced code blocks (` ```csharp ` / ` ```ts `) inside HTML `<div class="card-container">` blocks, which causes Markdown-it to abort HTML container parsing and dump literal `<div class="card-container">` raw text on screen.
+- **Corrected Behavior:** Place fenced code blocks (` ```csharp ` / ` ```ts `) directly in Markdown, with header badges/prompts in clean HTML above/below the code blocks outside any enclosing `<div>`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

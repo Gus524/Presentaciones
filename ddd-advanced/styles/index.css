@@ -218,6 +218,7 @@ div.slidev-code {
   font-weight: 600;
   letter-spacing: 0.025em;
   text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .badge-primary {
@@ -243,3 +244,65 @@ div.slidev-code {
   color: #f87171;
   border: 1px solid rgba(248, 113, 113, 0.3);
 }
+
+/* Slidev v-click Micro-Animations */
+.slidev-vclick-target {
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
+.slidev-vclick-hidden {
+  opacity: 0 !important;
+  transform: translateY(12px) scale(0.98);
+  pointer-events: none;
+}
+
+/* Enhanced Card Chromatic Variants & Subtle Glow Animation */
+.glass-card-danger {
+  border-left: 4px solid #f87171 !important;
+}
+.glass-card-danger:hover {
+  border-color: rgba(248, 113, 113, 0.6) !important;
+  box-shadow: 0 8px 30px rgba(248, 113, 113, 0.15);
+}
+
+.glass-card-success {
+  border-left: 4px solid #34d399 !important;
+}
+.glass-card-success:hover {
+  border-color: rgba(52, 211, 153, 0.6) !important;
+  box-shadow: 0 8px 30px rgba(52, 211, 153, 0.15);
+}
+
+.glass-card-info {
+  border-left: 4px solid #38bdf8 !important;
+}
+.glass-card-info:hover {
+  border-color: rgba(56, 189, 248, 0.6) !important;
+  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.15);
+}
+
+.glass-card-purple {
+  border-left: 4px solid #a855f7 !important;
+}
+.glass-card-purple:hover {
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.15);
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: subtlePulse 4s infinite ease-in-out;
+}
+

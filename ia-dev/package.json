@@ -1,10 +1,10 @@
 {
-  "name": "ddd-advanced",
+  "name": "ia-copiloto-presentacion",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build",
     "dev": "slidev --open",
+    "build": "slidev build",
     "export": "slidev export"
   },
   "dependencies": {

@@ -1,0 +1,214 @@
+/* Slidev Custom Styling for IA Copiloto Presentation */
+
+@import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap';
+
+:root {
+  --slidev-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --slidev-font-mono: 'Fira Code', monospace;
+  --color-primary: #0f172a;
+  --color-accent: #2563eb;
+  --color-accent-light: #3b82f6;
+  --color-bg-card: rgba(30, 41, 59, 0.6);
+  --color-border-card: rgba(148, 163, 184, 0.2);
+}
+
+/* Page-Level Vertical Scrolling & Base Styling */
+.slidev-layout {
+  font-family: var(--slidev-font-sans);
+  color: #f8fafc;
+  background-color: #0b0f19;
+  box-sizing: border-box;
+  overflow-y: auto !important;
+  max-height: 100vh;
+  padding: 2rem 2.5rem !important;
+}
+
+.slidev-page,
+.slidev-page-container {
+  overflow-y: auto !important;
+}
+
+h1 {
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.2 !important;
+}
+
+h2 {
+  font-weight: 600 !important;
+  color: #38bdf8 !important;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+}
+
+/* Two Column Grid Containment & Native 2x2 Grid Layout */
+.slidev-layout.two-cols-header {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important; /* 2 equal 50% columns */
+  grid-template-rows: auto 1fr !important;   /* Row 1: Header, Row 2: Cards */
+  gap: 1.5rem 2.5rem !important;            /* 24px vertical, 40px horizontal gap */
+  align-items: start !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Header spans both columns completely */
+.two-cols-header .col-header,
+.slidev-layout.two-cols-header > .col-header,
+.slidev-layout.two-cols-header > header {
+  grid-column: 1 / -1 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+}
+
+/* Left & Right columns occupy 100% of their 50% grid track */
+.two-cols-header .col-left,
+.two-cols-header .col-right {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Cards & Glassmorphism Containers */
+.card-container {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Natural Slide & Container Scroll Utility */
+.scrollable-card {
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+  padding-right: 0.25rem;
+}
+
+.scrollable-card::-webkit-scrollbar,
+.slidev-layout::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollable-card::-webkit-scrollbar-track,
+.slidev-layout::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.scrollable-card::-webkit-scrollbar-thumb,
+.slidev-layout::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 4px;
+}
+
+.card-accent {
+  border-left: 4px solid #38bdf8;
+}
+
+.card-purple {
+  border-left: 4px solid #c084fc;
+}
+
+.card-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.card-success {
+  border-left: 4px solid #10b981;
+}
+
+.card-danger {
+  border-left: 4px solid #ef4444;
+}
+
+/* Code Highlights Tuning */
+.slidev-code {
+  font-family: var(--slidev-font-mono) !important;
+  font-size: 0.74rem !important;
+  line-height: 1.45 !important;
+  border-radius: 0.5rem !important;
+  border: 1px solid rgba(51, 65, 85, 0.6) !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* Alert Boxes Styling */
+blockquote {
+  border-left: 4px solid #3b82f6;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 0.75rem 0;
+  font-style: normal !important;
+}
+
+blockquote p {
+  margin: 0 !important;
+}
+
+/* Mermaid Container Scaling & Scrollability */
+.mermaid-scrollable {
+  overflow-x: auto;
+  overflow-y: auto;
+  border-radius: 0.5rem;
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1.25rem;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+}
+
+.mermaid-scrollable .mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start !important;
+  transform: scale(0.88);
+  transform-origin: top center;
+}
+
+/* Badge Pills */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-blue {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-purple {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
